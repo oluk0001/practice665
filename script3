@@ -6,6 +6,13 @@ ACTION=${1}
 function create_file(){
 	touch "${1}-54321"
 }
+function show_version(){
+ 	version=1.0.1
+	echo $version
+}
+function delete_file(){
+	rm "${1}-54321"
+}
 
 function display_help(){
 
@@ -14,6 +21,8 @@ Usage: ${0} {-h|--help |-c|--create} <filename>
 
 OPTIONS:
 	-c|--create Create a new file
+	-v|--version Show version
+	-d|--delete Delete a file
 	-h|--help Display the command help
 
 Examples:
@@ -21,6 +30,10 @@ Examples:
 		$ ${0} -h
 	Create a new file:
 		$ ${0}-c foo.txt
+	Delete a file:
+		$ ${0} -d
+	Show version:
+		$ ${0} -v
 
 EOF
 }
@@ -32,7 +45,13 @@ case "$ACTION" in
 	-c|--create)
 		create_file "${2:-server}"
 		;;
+	-d|--delete)
+		delete_file "${2:-server}"
+		;;
+	-v|--version)
+		show_version "${2:-server}"
+		;;
 	*)
-	echo "Usage ${0} {-h|-c}"
+	echo "Usage ${0} {-h|-c|-d|-v}"
 	exit 1
 esac
